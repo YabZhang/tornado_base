@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
+"""
+@Author: YabZhang
+@Data: 2017.5.14
+"""
+
 import time
 import json
 import logging
@@ -18,7 +23,7 @@ define("host", default="127.0.0.1", type=str)
 define("port", default=8989, type=int, help="server run on the given port, defautl 8989")
 
 
-jwt_options = {
+JWT_OPTIONS = {
     'verify_signature': True,
     'verify_exp': True,
     'verify_nbf': False,
@@ -27,10 +32,11 @@ jwt_options = {
 }
 
 class JWTERROR(Exception):
+    """ JWT Error """
     pass
 
 class JWTHandler(RequestHandler):
-    """ handle JSON WEB TOKEN """
+    """ JWTHandler is to handle JSON WEB TOKEN """
 
     def jwt_encode(self, payload):
         if not isinstance(payload, dict):
@@ -58,7 +64,7 @@ class JWTHandler(RequestHandler):
 
             token = auth_items[1]
             jwt_secret = self.application.settings.get('jwt_secret')
-            result = jwt.decode(token, jwt_secret, **jwt_options)
+            result = jwt.decode(token, jwt_secret, **JWT_OPTIONS)
         except jwt.ExpiredSignatureError:
             self.set_status(403)
             self.finish({"msg": "jwt token has been expired"})
