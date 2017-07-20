@@ -38,18 +38,18 @@ def load_config():
            default=os.path.join(base_path, options.TEMPLATE_PATH_NAME))
 
     # mysql config
-    define('MYSQL', default={
-        'master': 'mysql+pymysql://root:root@db_server:3306/db_name?charset=utf8',
-        'slave': 'mysql+pymysql://slave:slave@db_server:3306/db_name?charset=utf8'
-    })
+    # define('MYSQL', default={
+    #     'master': 'mysql+pymysql://root:root@db_server:3306/db_name?charset=utf8',
+    #     'slave': 'mysql+pymysql://slave:slave@db_server:3306/db_name?charset=utf8'
+    # })
 
     # mongodb config
-    define('MONGO_PORT', default=27017)
-    define('MONGO_HOST', default="mongo_server")
+    # define('MONGO_PORT', default=27017)
+    # define('MONGO_HOST', default="mongo_server")
 
     # redis config
-    define('REDIS_PORT', default=6379)
-    define('REDIS_HOST', default="redis_server")
+    # define('REDIS_PORT', default=6379)
+    # define('REDIS_HOST', default="redis_server")
 
     # loading config from conf
     abs_path = os.path.abspath(__file__)
@@ -64,4 +64,3 @@ def load_config():
 if __name__ == "__main__":
     load_config()
     print("HOST: %s, PORT: %s" % (options.HOST, options.PORT))
-
