@@ -7,4 +7,3 @@ from modules.index import IndexHandler
 urls = [
     (r'/index', IndexHandler),
 ]
-

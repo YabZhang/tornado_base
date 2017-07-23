@@ -1,8 +1,6 @@
 # -*- coding: utf-8
 
-# from tornado.web import RequestHandler
 from core.base import BaseHandler
-from tornado.web import HTTPError
 
 class IndexHandler(BaseHandler):
 
