@@ -6,6 +6,9 @@ import traceback
 from tornado.web import RequestHandler
 from tornado.web import HTTPError
 
+from core.utils import encode_auth_token
+from core.utils import decode_auth_token
+
 __all__ = [
     'BaseHandler',
 ]
@@ -72,10 +75,7 @@ class BaseHandler(JSONParseHandler, FormHandler):
         if not token:
             return None
 
-        # TODO: decode_auth_token
-        decode_auth_token = lambda : 1
         user_id = decode_auth_token(token)
-
         if user_id:
             return user_id
         return None
