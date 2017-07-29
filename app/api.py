@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from modules.index import IndexHandler
+from modules.index import LoginHandler
 
 
 urls = [
-    (r'/index', IndexHandler),
+    (r'/', IndexHandler),
+    (r'/login', LoginHandler)
 ]

@@ -27,6 +27,7 @@ def load_config():
 
     # app path config
     define('AUTH_SALT', default="")
+    define('AUTH_TYPE', default="token")  # or json web token
     define('LOGIN_URL', default="/login")
     define('STATIC_PATH_NAME', default="static")
     define('TEMPLATE_PATH_NAME', default="templates")
