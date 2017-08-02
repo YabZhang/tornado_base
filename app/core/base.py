@@ -10,7 +10,7 @@ from tornado.web import HTTPError
 from core.utils import encode_auth_token
 from core.utils import decode_auth_token
 from core.db.mysql import Session
-from models.sql_orm import User
+from schema.sql_orm import User
 
 __all__ = [
     'BaseHandler',

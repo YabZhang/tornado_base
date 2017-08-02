@@ -12,6 +12,13 @@ from tornado.options import options, define
 """
 
 
+def passwd_encode(passwd):
+    new_string = "{0}:{1}".format(options.AUTH_SALT, passwd)
+    md5_obj = md5()
+    md5_obj.update(passwd)
+    return md5_obj.hexdigest()
+
+
 def encode_auth_token(member_id, hashed_pwd):
     """
     加密认证口令
