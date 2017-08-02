@@ -6,6 +6,7 @@ from hashlib import md5
 
 from tornado.options import options, define
 
+
 """
     工具函数；    
 """
@@ -35,28 +36,16 @@ def encode_auth_token(member_id, hashed_pwd):
 
 def decode_auth_token(token):
     """
-    解码认证token,并返回用户id
-    １．validate auth token;
-    2. get user id
-    :param token:
-    :return:
+    解码认证token,并返回
     """
-    try:
-        salt, member_id, token = base64.b64decode(str(token).encode()).split(':')
-        if not (salt and member_id and salt == options.AUTH_SALT):
-            return
+    salt, member_id, token = base64.b64decode(str(token).encode()).split(':')
+    if not (salt and member_id and salt == options.AUTH_SALT):
+        raise ValueError("Invalid User!")
 
-        if not (token and len(token) == 32):
-            return
+    if not (token and len(token) == 32):
+        raise ValueError("Invalid User!")
 
-        # TODO: access member info from db
-        # member_info = get_member_info()
-        hashed_pwd = ''
-        new_token = encode_auth_token(member_id, hashed_pwd)
-        return int(member_id) if new_token == token else ''
-    except Exception as e:
-        logging.exception(e)
-        return
+    return member_id, token
 
 
 if __name__ == '__main__':

@@ -9,6 +9,8 @@ from tornado.web import HTTPError
 
 from core.utils import encode_auth_token
 from core.utils import decode_auth_token
+from core.db.mysql import Session
+from models.sql_orm import User
 
 __all__ = [
     'BaseHandler',
@@ -70,16 +72,29 @@ class FormHandler(object):
 
 class BaseHandler(JSONParseHandler, FormHandler):
 
+    def prepare(self, *args, **kwargs):
+        super(BaseHandler, self).__init__(*args, **kwargs)
+        self._session = Session()
+
     def get_current_user(self):
         """ authentication """
         token = self.get_secure_cookie('auth') or self.request.headers.get('Authorization', '')
         if not token:
             return None
 
-        user_id = decode_auth_token(token)
-        if user_id:
-            return user_id
-        return None
+        try:
+            member_id, token = decode_auth_token(token)
+            user = self._session.query(User).get(member_id)
+
+            if user and user.password:
+                new_token = encode_auth_token(member_id, user.password)
+                result = new_token == token or None
+            else:
+                result = None
+        except Exception as e:
+            result = None
+
+        return result
 
     def set_json_content_type(self):
         """ set content type application/json """
