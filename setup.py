@@ -5,6 +5,8 @@ setup(
     version='0.0.1',
     install_requires = [
         'tornado',
+        'sqlalchemy',
+        'pymysql'
     ],
     entry_points={
         'console_scripts' : [
